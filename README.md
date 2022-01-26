@@ -1,4 +1,4 @@
-# Micro Framework AMQP Component
+# Micro Framework Doctrine Component
 
 Micro Framework plugin. Doctrine supports based on [doctrine/orm](https://www.doctrine-project.org/) library.
 
