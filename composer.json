@@ -1,0 +1,23 @@
+{
+    "name": "micro/plugin-doctrine",
+    "description": "Micro Framework: Doctrine ORM Supports",
+    "type": "library",
+    "version": "0.1",
+    "require": {
+        "doctrine/orm": "^2.11",
+        "doctrine/cache": "^2.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Micro\\Plugin\\Doctrine\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stanislau.Komar",
+            "email": "stanislau_komar@epam.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}
