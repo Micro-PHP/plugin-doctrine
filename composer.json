@@ -5,7 +5,9 @@
     "version": "0.1",
     "require": {
         "doctrine/orm": "^2.11",
-        "doctrine/cache": "^2.1"
+        "doctrine/cache": "^2.1",
+        "symfony/cache": "^6.0",
+        "doctrine/annotations": "^1.13"
     },
     "license": "MIT",
     "autoload": {
