@@ -4,6 +4,7 @@
     "type": "library",
     "version": "0.1",
     "require": {
+        "php": ">=8.0",
         "doctrine/orm": "^2.11",
         "doctrine/cache": "^2.1",
         "symfony/cache": "^6.0",

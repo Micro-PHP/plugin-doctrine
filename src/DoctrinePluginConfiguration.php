@@ -3,10 +3,8 @@
 namespace Micro\Plugin\Doctrine;
 
 use Micro\Framework\Kernel\Configuration\PluginConfiguration;
-use Micro\Plugin\Doctrine\Configuration\DriverConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfiguration;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfigurationInterface;
-use Micro\Plugin\Doctrine\Configuration\PdoSqliteDriverConfiguration;
 
 class DoctrinePluginConfiguration extends PluginConfiguration implements DoctrinePluginConfigurationInterface
 {

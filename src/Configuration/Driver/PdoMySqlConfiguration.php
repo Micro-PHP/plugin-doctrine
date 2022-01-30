@@ -9,6 +9,9 @@ class PdoMySqlConfiguration extends PluginRoutingKeyConfiguration implements Dri
     use UserPasswordTrait;
     use HostPortDbTrait;
 
+    /**
+     * @return array
+     */
     public function getParameters(): array
     {
         return [
