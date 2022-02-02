@@ -12,16 +12,18 @@ class EntityManagerFactory implements EntityManagerFactoryInterface
      * @param DoctrinePluginConfigurationInterface $pluginConfiguration
      */
     public function __construct(
-        private DoctrinePluginConfigurationInterface $pluginConfiguration,
-        private EntityManagerConfigurationFactoryInterface $entityManagerConfigurationFactory
-    ){}
+    private DoctrinePluginConfigurationInterface $pluginConfiguration,
+    private EntityManagerConfigurationFactoryInterface $entityManagerConfigurationFactory
+    )
+    {
+    }
 
     /**
      * {@inheritDoc}
      */
     public function create(string $entityManagerName = DoctrinePluginConfigurationInterface::CONNECTION_DEFAULT): EntityManagerInterface
     {
-        $managerConfig = $this->pluginConfiguration->getManagerConfiguration($entityManagerName);
+        $managerConfig    = $this->pluginConfiguration->getManagerConfiguration($entityManagerName);
         $connectionConfig = $managerConfig->getDriverConfiguration();
 
         return EntityManager::create(

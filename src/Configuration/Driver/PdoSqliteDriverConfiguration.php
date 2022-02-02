@@ -4,13 +4,12 @@ namespace Micro\Plugin\Doctrine\Configuration\Driver;
 
 use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
 
-
 class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration implements DriverConfigurationInterface
 {
 
     use UserPasswordTrait;
 
-    const CFG_PATH = 'ORM_%s_PATH';
+    const CFG_PATH      = 'ORM_%s_PATH';
     const CFG_IN_MEMORY = 'ORM_%s_IN_MEMORY';
 
     /**

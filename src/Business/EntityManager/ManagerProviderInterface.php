@@ -4,7 +4,6 @@ namespace Micro\Plugin\Doctrine\Business\EntityManager;
 
 use Doctrine\ORM\EntityManagerInterface;
 
-
 interface ManagerProviderInterface
 {
     /**
