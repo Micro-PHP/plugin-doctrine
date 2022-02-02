@@ -6,7 +6,7 @@ trait HostPortDbTrait
 {
     protected static string $CFG_HOST = 'ORM_%s_HOST';
     protected static string $CFG_PORT = 'ORM_%s_PORT';
-    protected static string $CFG_DB = 'ORM_%s_DATABASE';
+    protected static string $CFG_DB   = 'ORM_%s_DATABASE';
 
     /**
      * @return string|null

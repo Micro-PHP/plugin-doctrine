@@ -22,13 +22,14 @@ use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
 use Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand;
 use Micro\Plugin\Doctrine\DoctrineFacadeInterface;
 
-
 class DoctrineCommandProvider implements CommandProviderInterface
 {
     /**
      * @param DoctrineFacadeInterface $doctrineFacade
      */
-    public function __construct(private DoctrineFacadeInterface $doctrineFacade) {}
+    public function __construct(private DoctrineFacadeInterface $doctrineFacade)
+    {
+    }
 
     /**
      * {@inheritDoc}

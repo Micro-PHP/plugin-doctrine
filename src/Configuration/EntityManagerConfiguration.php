@@ -10,12 +10,12 @@ use Micro\Plugin\Doctrine\Configuration\Driver\PdoSqliteDriverConfiguration;
 class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implements EntityManagerConfigurationInterface
 {
 
-    const CFG_DRIVER_NAME = 'ORM_%s_DRIVER';
-    const CFG_PROXY_DIR = 'ORM_%s_PROXY_DIR';
-    const CFG_CONFIG_DIR = 'ORM_%s_CONFIG_DIR';
+    const CFG_DRIVER_NAME     = 'ORM_%s_DRIVER';
+    const CFG_PROXY_DIR       = 'ORM_%s_PROXY_DIR';
+    const CFG_CONFIG_DIR      = 'ORM_%s_CONFIG_DIR';
     const CFG_METADATA_DRIVER = 'ORM_%s_METADATA_DRIVER';
 
-    public const PROXY_DIR_DEFAULT = '/tmp/doctrine/';
+    public const PROXY_DIR_DEFAULT       = '/tmp/doctrine/';
     public const METADATA_DRIVER_DEFAULT = 'attribute';
 
     /**

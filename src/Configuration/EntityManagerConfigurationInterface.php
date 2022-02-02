@@ -7,7 +7,7 @@ use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 interface EntityManagerConfigurationInterface
 {
     public const DRIVER_ANNOTATION = 'annotation';
-    public const DRIVER_ATTRIBUTE = 'attribute';
+    public const DRIVER_ATTRIBUTE  = 'attribute';
 
     /**
      * @return string|null
@@ -25,7 +25,9 @@ interface EntityManagerConfigurationInterface
      *   - mysqli: A MySQL driver that uses the mysqli extension.
      *   - pdo_sqlite: An SQLite driver that uses the pdo_sqlite PDO extension.
      *   - pdo_pgsql: A PostgreSQL driver that uses the pdo_pgsql PDO extension.
-     *   - pdo_oci: An Oracle driver that uses the pdo_oci PDO extension. Note that this driver caused problems in our tests. Prefer the oci8 driver if possible.
+     *   - pdo_oci: An Oracle driver that uses the pdo_oci PDO extension.
+     *              Note that this driver caused problems in our tests.
+     *              Prefer the oci8 driver if possible.
      *   - pdo_sqlsrv: A Microsoft SQL Server driver that uses pdo_sqlsrv PDO
      *   - sqlsrv: A Microsoft SQL Server driver that uses the sqlsrv PHP extension.
      *   - oci8: An Oracle driver that uses the oci8 PHP extension.

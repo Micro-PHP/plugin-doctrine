@@ -28,7 +28,7 @@ class DoctrinePlugin extends AbstractPlugin implements CommandProviderInterface
         $this->container = $container;
 
         $container->register(DoctrineFacadeInterface::class, function (Container $container) {
-           return $this->createDoctrineFacade();
+            return $this->createDoctrineFacade();
         });
     }
 
@@ -99,4 +99,3 @@ class DoctrinePlugin extends AbstractPlugin implements CommandProviderInterface
         return $this->container->get(DoctrineFacadeInterface::class);
     }
 }
-
