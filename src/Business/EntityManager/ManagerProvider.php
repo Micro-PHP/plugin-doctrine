@@ -14,7 +14,7 @@ class ManagerProvider implements ManagerProviderInterface
     /**
      * @param EntityManagerFactoryInterface $entityManagerFactory
      */
-    public function __construct(private EntityManagerFactoryInterface $entityManagerFactory)
+    public function __construct(private readonly EntityManagerFactoryInterface $entityManagerFactory)
     {
         $this->entityManagerCollection = [];
     }
@@ -26,7 +26,10 @@ class ManagerProvider implements ManagerProviderInterface
      */
     public function getManager(string $managerAlias): EntityManagerInterface
     {
-        if(!array_key_exists($managerAlias, $this->entityManagerCollection)) {
+        if(
+            !array_key_exists($managerAlias, $this->entityManagerCollection) ||
+            !$this->entityManagerCollection[$managerAlias]->isOpen())
+        {
             $this->entityManagerCollection[$managerAlias] = $this->entityManagerFactory->create($managerAlias);
         }
 
