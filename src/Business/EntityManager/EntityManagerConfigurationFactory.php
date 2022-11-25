@@ -3,8 +3,8 @@
 namespace Micro\Plugin\Doctrine\Business\EntityManager;
 
 use Doctrine\ORM\Configuration;
-use Doctrine\ORM\Tools\Setup;
-use Micro\Kernel\App\AppKernelInterface;
+use Doctrine\ORM\ORMSetup;
+use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\Locator\AnnotationEntityFileConfigurationLocator;
 use Micro\Plugin\Doctrine\Configuration\Locator\AttributeEntityFileConfigurationLocator;
@@ -13,12 +13,12 @@ use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;
 class EntityManagerConfigurationFactory implements EntityManagerConfigurationFactoryInterface
 {
     /**
-     * @param AppKernelInterface $kernel
+     * @param KernelInterface $kernel
      * @param DoctrinePluginConfigurationInterface $pluginConfiguration
      */
     public function __construct(
-        private AppKernelInterface $kernel,
-        private DoctrinePluginConfigurationInterface $pluginConfiguration
+        private readonly KernelInterface $kernel,
+        private readonly DoctrinePluginConfigurationInterface $pluginConfiguration
     ) {}
 
     /**
@@ -43,10 +43,11 @@ class EntityManagerConfigurationFactory implements EntityManagerConfigurationFac
      * @param EntityManagerConfigurationInterface $configuration
      * @return Configuration
      */
-    protected function createAttributeMetadataConfiguration(EntityManagerConfigurationInterface $configuration): Configuration {
+    protected function createAttributeMetadataConfiguration(EntityManagerConfigurationInterface $configuration): Configuration
+    {
         $fileConfigurator = new AttributeEntityFileConfigurationLocator();
 
-        return Setup::createAttributeMetadataConfiguration(
+        return ORMSetup::createAttributeMetadataConfiguration(
             $fileConfigurator->getFiles($this->kernel->plugins()),
             $this->kernel->isDevMode(),
             $configuration->getProxyDir()
@@ -61,7 +62,7 @@ class EntityManagerConfigurationFactory implements EntityManagerConfigurationFac
     {
         $fileConfigurator = new AnnotationEntityFileConfigurationLocator();
 
-        return Setup::createAnnotationMetadataConfiguration(
+        return ORMSetup::createAnnotationMetadataConfiguration(
             $fileConfigurator->getFiles($this->kernel->plugins()),
             $this->kernel->isDevMode(),
             $configuration->getProxyDir()

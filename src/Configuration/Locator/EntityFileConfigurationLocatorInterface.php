@@ -2,19 +2,17 @@
 
 namespace Micro\Plugin\Doctrine\Configuration\Locator;
 
-use Micro\Framework\Kernel\Plugin\ApplicationPluginInterface;
-
 interface EntityFileConfigurationLocatorInterface
 {
     /**
-     * @param ApplicationPluginInterface $plugin
+     * @param object $plugin
      *
      * @return string[]
      */
-    public function getPluginFiles(ApplicationPluginInterface $plugin): array;
+    public function getPluginFiles(object $plugin): array;
 
     /**
-     * @param ApplicationPluginInterface[] $pluginCollection
+     * @param object[] $pluginCollection
      *
      * @return string[]
      */

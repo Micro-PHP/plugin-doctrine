@@ -11,7 +11,7 @@ class DoctrineFacade implements DoctrineFacadeInterface
     /**
      * @param ManagerProviderInterface $ormManager
      */
-    public function __construct(private ManagerProviderInterface $ormManager)
+    public function __construct(private readonly ManagerProviderInterface $ormManager)
     {
     }
 

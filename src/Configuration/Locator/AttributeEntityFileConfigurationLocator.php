@@ -2,12 +2,12 @@
 
 namespace Micro\Plugin\Doctrine\Configuration\Locator;
 
-use Micro\Framework\Kernel\Plugin\ApplicationPluginInterface;
-
 class AttributeEntityFileConfigurationLocator implements EntityFileConfigurationLocatorInterface
 {
-
-    public function getPluginFiles(ApplicationPluginInterface $plugin): array
+    /**
+     * {@inheritDoc}
+     */
+    public function getPluginFiles(object $plugin): array
     {
         $reflection = new \ReflectionClass($plugin);
 
@@ -17,11 +17,9 @@ class AttributeEntityFileConfigurationLocator implements EntityFileConfiguration
     }
 
     /**
-     * @param ApplicationPluginInterface[] $pluginCollection
-     *
-     * @return string[]
+     * {@inheritDoc}
      */
-    public function getFiles(array $pluginCollection): array
+    public function getFiles(iterable $pluginCollection): array
     {
         $files = [];
 
