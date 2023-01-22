@@ -78,12 +78,13 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
 
     public function getDriverName(): string
     {
-        return $this->get(self::CFG_DRIVER_NAME, '');
+        return $this->get(self::CFG_DRIVER_NAME, null, false);
     }
 
     public function getDriverConfiguration(): DriverConfigurationInterface
     {
         $driverName = mb_strtolower($this->getDriverName());
+
         if (!\in_array($driverName, $this->getAvailableDrivers())) {
             throw new \InvalidArgumentException(sprintf('ORM: Driver `%s` is not supported.', $driverName));
         }
