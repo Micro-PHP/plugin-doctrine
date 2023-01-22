@@ -22,6 +22,8 @@ use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactory;
 use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactoryInterface;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactory;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactoryInterface;
+use Micro\Plugin\Doctrine\Business\Locator\EntityFileConfigurationLocatorFactory;
+use Micro\Plugin\Doctrine\Business\Locator\EntityFileConfigurationLocatorFactoryInterface;
 use Micro\Plugin\Doctrine\Business\Metadata\DriverMetadataFactory;
 use Micro\Plugin\Doctrine\Business\Metadata\DriverMetadataFactoryInterface;
 use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactory;
@@ -84,8 +86,13 @@ class DoctrinePlugin implements DependencyProviderInterface, ConfigurableInterfa
     protected function createDriverMetadataFactory(): DriverMetadataFactoryInterface
     {
         return new DriverMetadataFactory(
-            $this->kernel,
+            $this->createEntityFileConfigurationLocatorFactory(),
             $this->configuration()
         );
+    }
+
+    protected function createEntityFileConfigurationLocatorFactory(): EntityFileConfigurationLocatorFactoryInterface
+    {
+        return new EntityFileConfigurationLocatorFactory($this->kernel);
     }
 }

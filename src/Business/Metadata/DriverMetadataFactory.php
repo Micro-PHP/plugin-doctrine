@@ -15,7 +15,6 @@ namespace Micro\Plugin\Doctrine\Business\Metadata;
 
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\ORMSetup;
-use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Doctrine\Business\Locator\EntityFileConfigurationLocatorFactoryInterface;
 use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;
 
@@ -25,7 +24,6 @@ use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;
 readonly class DriverMetadataFactory implements DriverMetadataFactoryInterface
 {
     public function __construct(
-        private KernelInterface $kernel,
         private EntityFileConfigurationLocatorFactoryInterface $entityFileConfigurationLocatorFactory,
         private DoctrinePluginConfigurationInterface $pluginConfiguration
     ) {
@@ -42,32 +40,5 @@ readonly class DriverMetadataFactory implements DriverMetadataFactoryInterface
             $this->pluginConfiguration->isDevMode(),
             $proxyDir
         );
-    }
-
-    /**
-     * @return string[]
-     */
-    protected function getPluginPaths(): array
-    {
-        $it = $this->kernel->plugins();
-        $dirColl = [];
-        foreach ($it as $plugin) {
-            $dir = $this->getPluginDir($plugin);
-            if (!$dir) {
-                continue;
-            }
-
-            $dirColl[] = $dir;
-        }
-
-        return $dirColl;
-    }
-
-    protected function getPluginDir(object $plugin): string|null
-    {
-        $ref = new \ReflectionObject($plugin);
-        $filename = $ref->getFileName();
-
-        return $filename ? \dirname($filename) : null;
     }
 }
