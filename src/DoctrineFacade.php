@@ -13,7 +13,9 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactoryInterface;
 use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolInterface;
 
@@ -26,13 +28,22 @@ class DoctrineFacade implements DoctrineFacadeInterface
         $this->managerPool = null;
     }
 
-    public function getManager(string $managerName = null): EntityManagerInterface
+    public function getManager(string $name = null): EntityManagerInterface
     {
-        if (!$managerName) {
-            $managerName = DoctrinePluginConfigurationInterface::MANAGER_DEFAULT;
+        if (!$name) {
+            $name = DoctrinePluginConfigurationInterface::MANAGER_DEFAULT;
         }
 
-        return $this->managerPool()->getManager($managerName);
+        return $this->managerPool()->getManager($name);
+    }
+
+    /**
+     * @throws MissingMappingDriverImplementation
+     * @throws Exception
+     */
+    public function getDefaultManager(): EntityManagerInterface
+    {
+        return $this->getManager();
     }
 
     protected function managerPool(): EntityManagerPoolInterface

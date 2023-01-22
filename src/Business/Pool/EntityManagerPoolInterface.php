@@ -13,22 +13,11 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine\Business\Pool;
 
-use Doctrine\DBAL\Exception;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider;
 
 /**
  * @author Stanislau Komar <head.trackingsoft@gmail.com>
  */
-interface EntityManagerPoolInterface
+interface EntityManagerPoolInterface extends EntityManagerProvider
 {
-    /**
-     * @param string $managerName
-     *
-     * @throws Exception
-     * @throws MissingMappingDriverImplementation
-     *
-     * @return EntityManagerInterface
-     */
-    public function getManager(string $managerName): EntityManagerInterface;
 }

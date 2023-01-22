@@ -38,4 +38,9 @@ class EntityManagerPool implements EntityManagerPoolInterface
 
         return $this->entityManagerPool[$managerName];
     }
+
+    public function getDefaultManager(): EntityManagerInterface
+    {
+        throw new \LogicException('You use internal class.');
+    }
 }
