@@ -19,9 +19,9 @@ trait HostPortDbTrait
     protected static string $CFG_PORT = 'ORM_%s_PORT';
     protected static string $CFG_DB = 'ORM_%s_DATABASE';
 
-    public function getHost(string|null $default = null): ?string
+    public function getHost(): ?string
     {
-        return $this->get(self::$CFG_HOST, $default);
+        return $this->get(self::$CFG_HOST, 'localhost');
     }
 
     public function getPort(int|null $default = null): ?int

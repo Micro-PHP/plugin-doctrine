@@ -27,7 +27,7 @@ class PdoMySqlConfiguration extends PluginRoutingKeyConfiguration implements Dri
             'user' => $this->getUser(),
             'host' => $this->getHost(),
             'password' => $this->getPassword(),
-            'port' => $this->getPort() ?? 3306,
+            'port' => $this->getPort(3306),
             'dbname' => $this->getDb(),
         ];
     }
