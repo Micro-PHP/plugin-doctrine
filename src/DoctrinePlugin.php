@@ -35,7 +35,7 @@ use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactoryInterface;
  *   - ExceptionConverter.php: An exception occurred in the driver: could not find driver
  *   - Doctrine\DBAL\Exception\DriverException: An exception occurred in the driver: could not find driver
  *  Solve: should php-dpo installed or other necessary driver.
- *  Example: apt install php8.2-pdo php8.2-mysql
+ *  Example: apt install php8.2-pdo php8.2-mysql.
  *
  * @method DoctrinePluginConfigurationInterface configuration()
  */

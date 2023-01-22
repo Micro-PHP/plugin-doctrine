@@ -20,15 +20,6 @@ interface DoctrinePluginConfigurationInterface
     public const MANAGER_DEFAULT = 'default';
 
     /**
-     * If $isDevMode is true caching is done in memory with the ArrayAdapter. Proxy objects are recreated on every request.
-     * If $isDevMode is false, set then proxy classes have to be explicitly created through the command line.
-     * If third argument `$proxyDir` is not set, use the systems temporary directory.
-     *
-     * @return string|null
-     */
-    public function getProxyDir(): ?string;
-
-    /**
      * List of compound names. They are also aliases for specific entity managers. By default, ["default"].
      *
      * @api
@@ -43,11 +34,6 @@ interface DoctrinePluginConfigurationInterface
      * @return bool
      */
     public function isDevMode(): bool;
-
-    /**
-     * @return string[]
-     */
-    public function getAvailableDrivers(): array;
 
     /**
      * @api

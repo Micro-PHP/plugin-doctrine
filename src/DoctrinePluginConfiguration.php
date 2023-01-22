@@ -22,13 +22,6 @@ class DoctrinePluginConfiguration extends PluginConfiguration implements Doctrin
     public const CFG_CONNECTIONS = 'ORM_CONNECTION_LIST';
 
     /**
-     * @api
-     */
-    public function getProxyDir(): ?string
-    {
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function getConnectionList(): array
@@ -45,11 +38,6 @@ class DoctrinePluginConfiguration extends PluginConfiguration implements Doctrin
 
     public function isDevMode(): bool
     {
-        return str_starts_with('dev', $this->configuration->get('APP_ENV', 'dev'));
-    }
-
-    public function getAvailableDrivers(): array
-    {
-        // TODO: Implement getAvailableDrivers() method.
+        return str_starts_with((string) $this->configuration->get('APP_ENV', 'dev'), 'dev');
     }
 }

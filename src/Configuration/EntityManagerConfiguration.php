@@ -49,6 +49,9 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
      */
     public const CFG_CONFIG_DIR = 'ORM_%s_CONFIG_DIR';
 
+    /**
+     * @return string|null
+     */
     public function getProxyDir(): ?string
     {
         return $this->get(self::CFG_PROXY_DIR);
@@ -67,17 +70,12 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
             throw new \InvalidArgumentException(sprintf('ORM: Driver `%s` is not supported.', $driverName));
         }
 
-        $config = match ($driverName) {
+        return match ($driverName) {
             PdoMySqlConfiguration::name() => new PdoMySqlConfiguration($this->configuration, $this->configRoutingKey),
             PdoPgSqlConfiguration::name() => new PdoPgSqlConfiguration($this->configuration, $this->configRoutingKey),
             PdoSqliteDriverConfiguration::name() => new PdoSqliteDriverConfiguration($this->configuration, $this->configRoutingKey),
+            default => throw new \InvalidArgumentException(sprintf('Driver `%s` is available, but not supported in the current version.', $driverName)),
         };
-
-        if (null === $config) {
-            throw new \InvalidArgumentException(sprintf('Driver `%s` is available, but not supported in the current version.', $driverName));
-        }
-
-        return $config;
     }
 
     /**

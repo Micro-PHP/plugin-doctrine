@@ -18,6 +18,9 @@ namespace Micro\Plugin\Doctrine\Configuration\Driver;
  */
 interface DriverConfigurationInterface
 {
+    /**
+     * @return array<string, mixed>
+     */
     public function getParameters(): array;
 
     public static function name(): string;

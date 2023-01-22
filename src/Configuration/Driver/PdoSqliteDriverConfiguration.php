@@ -35,9 +35,6 @@ class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration impleme
         return $this->get(self::CFG_IN_MEMORY, false);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getParameters(): array
     {
         return [

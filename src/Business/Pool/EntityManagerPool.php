@@ -30,17 +30,17 @@ class EntityManagerPool implements EntityManagerPoolInterface
     ) {
     }
 
-    public function getManager(string $managerName): EntityManagerInterface
+    public function getManager(string $name): EntityManagerInterface
     {
-        if (!\array_key_exists($managerName, $this->entityManagerPool)) {
-            $this->entityManagerPool[$managerName] = $this->entityManagerFactory->create($managerName);
+        if (!\array_key_exists($name, $this->entityManagerPool)) {
+            $this->entityManagerPool[$name] = $this->entityManagerFactory->create($name);
         }
 
-        return $this->entityManagerPool[$managerName];
+        return $this->entityManagerPool[$name];
     }
 
     public function getDefaultManager(): EntityManagerInterface
     {
-        throw new \LogicException('You use internal class.');
+        throw new \LogicException('Method is not supported.');
     }
 }
