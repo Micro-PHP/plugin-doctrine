@@ -35,7 +35,7 @@ readonly class AttributeEntityFileConfigurationLocator implements EntityFileConf
             $files[] = $pluginFiles;
         }
 
-        return array_merge(...$files);
+        return $files;
     }
 
     private function getPluginFiles(object $plugin): string|null
