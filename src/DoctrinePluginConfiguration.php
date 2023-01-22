@@ -1,5 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine;
 
 use Micro\Framework\Kernel\Configuration\PluginConfiguration;
@@ -8,7 +19,14 @@ use Micro\Plugin\Doctrine\Configuration\EntityManagerConfigurationInterface;
 
 class DoctrinePluginConfiguration extends PluginConfiguration implements DoctrinePluginConfigurationInterface
 {
-    const CFG_CONNECTIONS = 'ORM_CONNECTION_LIST';
+    public const CFG_CONNECTIONS = 'ORM_CONNECTION_LIST';
+
+    /**
+     * @api
+     */
+    public function getProxyDir(): ?string
+    {
+    }
 
     /**
      * {@inheritDoc}
@@ -16,16 +34,22 @@ class DoctrinePluginConfiguration extends PluginConfiguration implements Doctrin
     public function getConnectionList(): array
     {
         return $this->explodeStringToArray(
-            $this->configuration->get(self::CFG_CONNECTIONS, self::CONNECTION_DEFAULT)
+            $this->configuration->get(self::CFG_CONNECTIONS, self::MANAGER_DEFAULT)
         );
     }
 
-    /**
-     * @param string $connectionName
-     * @return EntityManagerConfigurationInterface
-     */
     public function getManagerConfiguration(string $connectionName): EntityManagerConfigurationInterface
     {
         return new EntityManagerConfiguration($this->configuration, $connectionName);
+    }
+
+    public function isDevMode(): bool
+    {
+        return str_starts_with('dev', $this->configuration->get('APP_ENV', 'dev'));
+    }
+
+    public function getAvailableDrivers(): array
+    {
+        // TODO: Implement getAvailableDrivers() method.
     }
 }

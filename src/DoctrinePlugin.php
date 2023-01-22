@@ -1,78 +1,91 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine;
 
 use Micro\Component\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
-use Micro\Framework\Kernel\Plugin\AbstractPlugin;
-use Micro\Kernel\App\AppKernelInterface;
-use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerConfigurationFactory;
-use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerConfigurationFactoryInterface;
+use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
+use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
+use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
+use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactory;
+use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactoryInterface;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactory;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactoryInterface;
-use Micro\Plugin\Doctrine\Business\EntityManager\ManagerProvider;
-use Micro\Plugin\Doctrine\Business\EntityManager\ManagerProviderInterface;
+use Micro\Plugin\Doctrine\Business\Metadata\DriverMetadataFactory;
+use Micro\Plugin\Doctrine\Business\Metadata\DriverMetadataFactoryInterface;
+use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactory;
+use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactoryInterface;
 
 /**
+ * Doctrine ORM Plugin.
+ *
+ * Doctrine\DBAL\Exception\DriverException: An exception occurred in the driver: could not find driver
+ *      -   should php-dpo installed or other necessary driver.
+ *          Example: apt install php8.2-pdo php8.2-mysql
+ *
  * @method DoctrinePluginConfigurationInterface configuration()
  */
-class DoctrinePlugin extends AbstractPlugin
+class DoctrinePlugin implements DependencyProviderInterface, ConfigurableInterface
 {
-    private readonly KernelInterface $kernel;
+    use PluginConfigurationTrait;
+
+    private KernelInterface $kernel;
 
     /**
      * {@inheritDoc}
      */
     public function provideDependencies(Container $container): void
     {
-        $container->register(DoctrineFacadeInterface::class, function (KernelInterface $kernel) {
-
+        $container->register(DoctrineFacadeInterface::class, function (KernelInterface $kernel): DoctrineFacadeInterface {
             $this->kernel = $kernel;
 
             return $this->createDoctrineFacade();
         });
     }
 
-    /**
-     * @return DoctrineFacadeInterface
-     */
     protected function createDoctrineFacade(): DoctrineFacadeInterface
     {
-        return new DoctrineFacade($this->createManagerProvider());
+        return new DoctrineFacade($this->createManagerPool());
     }
 
-    /**
-     * @return EntityManagerFactoryInterface
-     */
+    protected function createManagerPool(): EntityManagerPoolFactoryInterface
+    {
+        return new EntityManagerPoolFactory(
+            $this->createEntityManagerFactory()
+        );
+    }
+
     protected function createEntityManagerFactory(): EntityManagerFactoryInterface
     {
-        return new EntityManagerFactory($this->configuration(), $this->createEntityManagerConfigurationFactory());
+        return new EntityManagerFactory(
+            $this->createConnectionFactory(),
+            $this->createDriverMetadataFactory(),
+        );
     }
 
-    /**
-     * @return EntityManagerConfigurationFactoryInterface
-     */
-    protected function createEntityManagerConfigurationFactory(): EntityManagerConfigurationFactoryInterface
+    protected function createConnectionFactory(): ConnectionFactoryInterface
     {
-        return new EntityManagerConfigurationFactory(
-            $this->kernel,
+        return new ConnectionFactory(
             $this->configuration()
         );
     }
 
-    /**
-     * @return ManagerProviderInterface
-     */
-    protected function createManagerProvider(): ManagerProviderInterface
+    protected function createDriverMetadataFactory(): DriverMetadataFactoryInterface
     {
-        return new ManagerProvider($this->createEntityManagerFactory());
-    }
-
-    /**
-     * @return AppKernelInterface
-     */
-    protected function lookupKernel(): AppKernelInterface
-    {
-        return $this->container->get(AppKernelInterface::class);
+        return new DriverMetadataFactory(
+            $this->kernel,
+            $this->configuration()
+        );
     }
 }

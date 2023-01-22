@@ -11,9 +11,14 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Configuration\Driver;
+namespace Micro\Plugin\Doctrine\Business\Metadata;
 
-interface DriverConfigurationInterface
+use Doctrine\ORM\Configuration;
+
+/**
+ * @author Stanislau Komar <head.trackingsoft@gmail.com>
+ */
+interface DriverMetadataFactoryInterface
 {
-    public function getParameters(): array;
+    public function create(string $entityManagerName): Configuration;
 }

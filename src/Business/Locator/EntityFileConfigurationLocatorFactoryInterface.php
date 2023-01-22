@@ -11,9 +11,12 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Configuration\Driver;
+namespace Micro\Plugin\Doctrine\Business\Locator;
 
-interface DriverConfigurationInterface
+/**
+ * @author Stanislau Komar <head.trackingsoft@gmail.com>
+ */
+interface EntityFileConfigurationLocatorFactoryInterface
 {
-    public function getParameters(): array;
+    public function create(): EntityFileConfigurationLocatorInterface;
 }

@@ -11,17 +11,24 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Business\EntityManager;
+namespace Micro\Plugin\Doctrine\Business\Pool;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 
-interface EntityManagerFactoryInterface
+/**
+ * @author Stanislau Komar <head.trackingsoft@gmail.com>
+ */
+interface EntityManagerPoolInterface
 {
     /**
+     * @param string $managerName
+     *
      * @throws Exception
      * @throws MissingMappingDriverImplementation
+     *
+     * @return EntityManagerInterface
      */
-    public function create(string $entityManagerName): EntityManagerInterface;
+    public function getManager(string $managerName): EntityManagerInterface;
 }

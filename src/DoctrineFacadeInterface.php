@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine;
 
-use Doctrine\DBAL\Tools\Console\ConnectionProvider;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Console\EntityManagerProvider;
+use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolInterface;
 
-interface DoctrineFacadeInterface extends EntityManagerProvider, ConnectionProvider
+interface DoctrineFacadeInterface extends EntityManagerPoolInterface
 {
-    /**
-     * @param string $managerAlias
-     * @return EntityManagerInterface
-     */
-    public function getManager(string $managerAlias = DoctrinePluginConfigurationInterface::CONNECTION_DEFAULT): EntityManagerInterface;
 }
