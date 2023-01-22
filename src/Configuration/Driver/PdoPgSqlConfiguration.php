@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
-/*
- *  This file is part of the Micro framework package.
+/**
+ * This file is part of the Micro framework package.
  *
- *  (c) Stanislau Komar <kost@micro-php.net>
+ * (c) Stanislau Komar <head.trackingsoft@gmail.com>
  *
- *  For the full copyright and license information, please view the LICENSE
- *  file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Micro\Plugin\Doctrine\Configuration\Driver;
 
 use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
 
-class PdoMySqlConfiguration extends PluginRoutingKeyConfiguration implements DriverConfigurationInterface
+/**
+ * @author Stanislau Komar <head.trackingsoft@gmail.com>
+ */
+class PdoPgSqlConfiguration extends PluginRoutingKeyConfiguration implements DriverConfigurationInterface
 {
     use HostPortDbTrait;
     use UserPasswordTrait;
@@ -27,13 +30,13 @@ class PdoMySqlConfiguration extends PluginRoutingKeyConfiguration implements Dri
             'user' => $this->getUser(),
             'host' => $this->getHost(),
             'password' => $this->getPassword(),
-            'port' => $this->getPort(3306),
+            'port' => $this->getPort(5432),
             'dbname' => $this->getDb(),
         ];
     }
 
     public static function name(): string
     {
-        return 'pdo_mysql';
+        return 'pdo_pgsql';
     }
 }

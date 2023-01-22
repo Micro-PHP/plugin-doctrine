@@ -13,7 +13,12 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine\Configuration\Driver;
 
+/**
+ * TODO: implements replication.
+ */
 interface DriverConfigurationInterface
 {
     public function getParameters(): array;
+
+    public static function name(): string;
 }

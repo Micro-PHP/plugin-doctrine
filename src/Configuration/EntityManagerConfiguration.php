@@ -17,6 +17,7 @@ use Doctrine\DBAL\DriverManager;
 use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoMySqlConfiguration;
+use Micro\Plugin\Doctrine\Configuration\Driver\PdoPgSqlConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoSqliteDriverConfiguration;
 
 class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implements EntityManagerConfigurationInterface
@@ -48,32 +49,9 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
      */
     public const CFG_CONFIG_DIR = 'ORM_%s_CONFIG_DIR';
 
-    /**
-     * Driver name.
-     *
-     * Example `ORM_DEFAULT_METADATA_DRIVER=attribute`
-     *
-     * @api
-     */
-    public const CFG_METADATA_DRIVER = 'ORM_%s_METADATA_DRIVER';
-
-    /**
-     * Proxy dir default.
-     *
-     * @api
-     */
-    public const PROXY_DIR_DEFAULT = '/tmp/doctrine/';
-
-    /**
-     * Metadata driver default.
-     *
-     * @api
-     */
-    public const METADATA_DRIVER_DEFAULT = 'attribute';
-
     public function getProxyDir(): ?string
     {
-        return $this->get(self::CFG_PROXY_DIR, self::PROXY_DIR_DEFAULT);
+        return $this->get(self::CFG_PROXY_DIR);
     }
 
     public function getDriverName(): string
@@ -89,29 +67,14 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
             throw new \InvalidArgumentException(sprintf('ORM: Driver `%s` is not supported.', $driverName));
         }
 
-        /*
-         *
-         Implemented:
-            'pdo_mysql'
-            'pdo_sqlite'
-
-         TODO:
-            'pdo_pgsql'
-            'pdo_oci'
-            'oci8'
-            'ibm_db2'
-            'pdo_sqlsrv'
-            'mysqli'
-            'sqlsrv'
-            'sqlite3'
-         */
         $config = match ($driverName) {
-            'pdo_mysql' => new PdoMySqlConfiguration($this->configuration, $driverName),
-            'pdo_sqlite' => new PdoSqliteDriverConfiguration($this->configuration, $driverName),
+            PdoMySqlConfiguration::name() => new PdoMySqlConfiguration($this->configuration, $this->configRoutingKey),
+            PdoPgSqlConfiguration::name() => new PdoPgSqlConfiguration($this->configuration, $this->configRoutingKey),
+            PdoSqliteDriverConfiguration::name() => new PdoSqliteDriverConfiguration($this->configuration, $this->configRoutingKey),
         };
 
         if (null === $config) {
-            throw new \InvalidArgumentException(sprintf('Driver `%s` is not supported now.', $driverName));
+            throw new \InvalidArgumentException(sprintf('Driver `%s` is available, but not supported in the current version.', $driverName));
         }
 
         return $config;

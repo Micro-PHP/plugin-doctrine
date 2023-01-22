@@ -24,7 +24,7 @@ class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration impleme
 
     public function getPath(): ?string
     {
-        return $this->get(self::CFG_PATH);
+        return $this->get(self::CFG_PATH, null, false);
     }
 
     /**
@@ -41,11 +41,16 @@ class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration impleme
     public function getParameters(): array
     {
         return [
-            'driver' => 'pdo_sqlite',
+            'driver' => static::name(),
             'path' => $this->getPath(),
             'user' => $this->getUser(),
             'password' => $this->getPassword(),
             'memory' => $this->inMemory(),
         ];
+    }
+
+    public static function name(): string
+    {
+        return 'pdo_sqlite';
     }
 }

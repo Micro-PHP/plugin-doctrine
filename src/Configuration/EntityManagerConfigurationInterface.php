@@ -33,6 +33,19 @@ interface EntityManagerConfigurationInterface
     public function getDriverName(): string;
 
     /**
+     *          Implemented:
+     * 'pdo_mysql'
+     * 'pdo_sqlite'
+     * 'pdo_pgsql'
+     *
+     * TODO:
+     *      - 'pdo_oci'
+     *      -  'oci8'
+     *      - 'ibm_db2'
+     *      - 'pdo_sqlsrv'
+     *      - 'mysqli'
+     *      - 'sqlsrv'
+     *
      * @api
      */
     public function getDriverConfiguration(): DriverConfigurationInterface;
