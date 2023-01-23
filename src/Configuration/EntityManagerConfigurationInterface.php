@@ -17,9 +17,6 @@ use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 
 interface EntityManagerConfigurationInterface
 {
-    public const DRIVER_ANNOTATION = 'annotation';
-    public const DRIVER_ATTRIBUTE = 'attribute';
-
     /**
      * If $isDevMode is true caching is done in memory with the ArrayAdapter. Proxy objects are recreated on every request.
      * If $isDevMode is false, set then proxy classes have to be explicitly created through the command line.
@@ -28,11 +25,6 @@ interface EntityManagerConfigurationInterface
      * @api
      */
     public function getProxyDir(): ?string;
-
-    /**
-     * @api
-     */
-    public function getEntityConfigurationDir(): string;
 
     /**
      *  Get entity manager driver.

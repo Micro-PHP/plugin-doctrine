@@ -21,12 +21,12 @@ trait HostPortDbTrait
 
     public function getHost(): ?string
     {
-        return $this->get(self::$CFG_HOST, '127.0.0.1');
+        return $this->get(self::$CFG_HOST, '127.0.0.1', false);
     }
 
     public function getPort(int|null $default = null): ?int
     {
-        return $this->get(self::$CFG_PORT, $default);
+        return (int) $this->get(self::$CFG_PORT, $default) ?: null;
     }
 
     public function getDb(): string

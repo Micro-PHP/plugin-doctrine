@@ -20,12 +20,13 @@ use PHPUnit\Framework\TestCase;
 
 class DoctrinePluginTest extends TestCase
 {
-    public function testPlugin()
+    public function testSqlitePlugin()
     {
         $kernel = new AppKernel(
             [
-                'ORM_DEFAULT_DRIVER' => 'pdo_mysql',
-                'ORM_PDO_MYSQL_DATABASE' => 'test',
+                'ORM_DEFAULT_DRIVER' => 'pdo_sqlite',
+                'ORM_DEFAULT_PATH' => '/dev/null',
+                'ORM_DEFAULT_IN_MEMORY' => true,
             ],
             [DoctrinePlugin::class],
             'dev'
@@ -35,7 +36,9 @@ class DoctrinePluginTest extends TestCase
         /** @var DoctrineFacadeInterface $doctrine */
         $doctrine = $kernel->container()->get(DoctrineFacadeInterface::class);
         $manager = $doctrine->getManager();
+        $this->assertEquals($manager, $doctrine->getDefaultManager());
 
-        var_dump($manager->getConnection()->connect());
+        $this->assertTrue($manager->getConnection()->connect());
+        $manager->getConnection()->close();
     }
 }

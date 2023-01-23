@@ -41,15 +41,6 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
     public const CFG_PROXY_DIR = 'ORM_%s_PROXY_DIR';
 
     /**
-     * Driver name.
-     *
-     * Example `ORM_DEFAULT_CONFIG_DIR=${BASE_PATH}/var/cache/orm/proxy`
-     *
-     * @api
-     */
-    public const CFG_CONFIG_DIR = 'ORM_%s_CONFIG_DIR';
-
-    /**
      * @return string|null
      */
     public function getProxyDir(): ?string
@@ -84,10 +75,5 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
     public function getAvailableDrivers(): array
     {
         return DriverManager::getAvailableDrivers();
-    }
-
-    public function getEntityConfigurationDir(): string
-    {
-        return $this->get(self::CFG_CONFIG_DIR);
     }
 }
