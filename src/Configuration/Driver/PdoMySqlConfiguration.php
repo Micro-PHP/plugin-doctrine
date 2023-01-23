@@ -1,34 +1,39 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine\Configuration\Driver;
 
 use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
 
 class PdoMySqlConfiguration extends PluginRoutingKeyConfiguration implements DriverConfigurationInterface
 {
-    use UserPasswordTrait;
     use HostPortDbTrait;
+    use UserPasswordTrait;
 
-    /**
-     * @return array
-     */
     public function getParameters(): array
     {
         return [
-            'driver'    => 'pdo_mysql',
-            'user'      => $this->getUser(),
-            'host'      => $this->getHost(),
-            'password'  => $this->getPassword(),
-            'port'      => $this->getPort() ?? 3306,
-            'dbname'    => $this->getDb(),
+            'driver' => static::name(),
+            'user' => $this->getUser(),
+            'host' => $this->getHost(),
+            'password' => $this->getPassword(),
+            'port' => $this->getPort(3306),
+            'dbname' => $this->getDb(),
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public static function supports(string $driverName): bool
+    public static function name(): string
     {
-        return 'pdo_mysql' === $driverName;
+        return 'pdo_mysql';
     }
 }

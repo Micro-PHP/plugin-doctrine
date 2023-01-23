@@ -1,34 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine\Business\EntityManager;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;
+use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactoryInterface;
+use Micro\Plugin\Doctrine\Business\Metadata\DriverMetadataFactoryInterface;
 
-class EntityManagerFactory implements EntityManagerFactoryInterface
+readonly class EntityManagerFactory implements EntityManagerFactoryInterface
 {
-    /**
-     * @param DoctrinePluginConfigurationInterface $pluginConfiguration
-     */
     public function __construct(
-    private DoctrinePluginConfigurationInterface $pluginConfiguration,
-    private EntityManagerConfigurationFactoryInterface $entityManagerConfigurationFactory
-    )
-    {
+        private ConnectionFactoryInterface $connectionFactory,
+        private DriverMetadataFactoryInterface $driverMetadataFactory
+    ) {
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function create(string $entityManagerName = DoctrinePluginConfigurationInterface::CONNECTION_DEFAULT): EntityManagerInterface
+    public function create(string $entityManagerName): EntityManagerInterface
     {
-        $managerConfig    = $this->pluginConfiguration->getManagerConfiguration($entityManagerName);
-        $connectionConfig = $managerConfig->getDriverConfiguration();
+        $managerConfig = $this->connectionFactory->create($entityManagerName);
+        $driver = $this->driverMetadataFactory->create($entityManagerName);
 
-        return EntityManager::create(
-            $connectionConfig->getParameters(),
-            $this->entityManagerConfigurationFactory->create($entityManagerName)
-        );
+        return new EntityManager($managerConfig, $driver);
     }
 }

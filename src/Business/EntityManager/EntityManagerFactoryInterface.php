@@ -1,19 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine\Business\EntityManager;
 
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\ORMException;
-use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
 
 interface EntityManagerFactoryInterface
 {
     /**
-     * @param string $entityManagerName
-     *
-     * @return EntityManagerInterface
-     *
-     * @throws ORMException
+     * @throws Exception
+     * @throws MissingMappingDriverImplementation
      */
     public function create(string $entityManagerName): EntityManagerInterface;
 }

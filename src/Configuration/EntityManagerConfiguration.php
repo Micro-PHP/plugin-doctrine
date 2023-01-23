@@ -1,80 +1,79 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine\Configuration;
 
+use Doctrine\DBAL\DriverManager;
 use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoMySqlConfiguration;
+use Micro\Plugin\Doctrine\Configuration\Driver\PdoPgSqlConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoSqliteDriverConfiguration;
 
 class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implements EntityManagerConfigurationInterface
 {
+    /**
+     * Driver name.
+     *
+     * Example `ORM_DEFAULT_DRIVER=pdo_mysql`
+     *
+     * @api
+     */
+    public const CFG_DRIVER_NAME = 'ORM_%s_DRIVER';
 
-    const CFG_DRIVER_NAME     = 'ORM_%s_DRIVER';
-    const CFG_PROXY_DIR       = 'ORM_%s_PROXY_DIR';
-    const CFG_CONFIG_DIR      = 'ORM_%s_CONFIG_DIR';
-    const CFG_METADATA_DRIVER = 'ORM_%s_METADATA_DRIVER';
-
-    public const PROXY_DIR_DEFAULT       = '/tmp/doctrine/';
-    public const METADATA_DRIVER_DEFAULT = 'attribute';
+    /**
+     * Driver name.
+     *
+     * Example `ORM_DEFAULT_PROXY_DIR=${BASE_PATH}/var/cache/orm/proxy`
+     *
+     * @api
+     */
+    public const CFG_PROXY_DIR = 'ORM_%s_PROXY_DIR';
 
     /**
      * @return string|null
      */
     public function getProxyDir(): ?string
     {
-        return $this->get(self::CFG_PROXY_DIR, self::PROXY_DIR_DEFAULT);
+        return $this->get(self::CFG_PROXY_DIR);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getDriverName(): string
     {
-        return $this->get(self::CFG_DRIVER_NAME, '');
+        return $this->get(self::CFG_DRIVER_NAME, null, false);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getMetadataDriver(): string
-    {
-        return $this->get(self::CFG_METADATA_DRIVER, self::METADATA_DRIVER_DEFAULT);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getDriverConfiguration(): DriverConfigurationInterface
     {
-        $driverName = $this->getDriverName();
-        foreach ($this->getDriversAvailable() as $driverClass) {
-            if(!$driverClass::supports($driverName)) {
-                continue;
-            }
+        $driverName = mb_strtolower($this->getDriverName());
 
-            return new $driverClass($this->configuration, $this->configRoutingKey);
+        if (!\in_array($driverName, $this->getAvailableDrivers())) {
+            throw new \InvalidArgumentException(sprintf('ORM: Driver `%s` is not supported.', $driverName));
         }
 
-        throw new \InvalidArgumentException(sprintf('ORM: Driver "%s" is not supported.', $driverName));
+        return match ($driverName) {
+            PdoMySqlConfiguration::name() => new PdoMySqlConfiguration($this->configuration, $this->configRoutingKey),
+            PdoPgSqlConfiguration::name() => new PdoPgSqlConfiguration($this->configuration, $this->configRoutingKey),
+            PdoSqliteDriverConfiguration::name() => new PdoSqliteDriverConfiguration($this->configuration, $this->configRoutingKey),
+            default => throw new \InvalidArgumentException(sprintf('Driver `%s` is available, but not supported in the current version.', $driverName)),
+        };
     }
 
     /**
      * @return string[]
      */
-    protected function getDriversAvailable(): array
+    public function getAvailableDrivers(): array
     {
-        return [
-            PdoSqliteDriverConfiguration::class,
-            PdoMySqlConfiguration::class
-        ];
-    }
-
-    /**
-     * @return string
-     */
-    public function getEntityConfigurationDir(): string
-    {
-        return $this->get(self::CFG_CONFIG_DIR);
+        return DriverManager::getAvailableDrivers();
     }
 }

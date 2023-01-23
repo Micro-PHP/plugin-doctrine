@@ -1,52 +1,53 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine\Configuration;
 
 use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 
 interface EntityManagerConfigurationInterface
 {
-    public const DRIVER_ANNOTATION = 'annotation';
-    public const DRIVER_ATTRIBUTE  = 'attribute';
-
     /**
-     * @return string|null
+     * If $isDevMode is true caching is done in memory with the ArrayAdapter. Proxy objects are recreated on every request.
+     * If $isDevMode is false, set then proxy classes have to be explicitly created through the command line.
+     * If third argument `$proxyDir` is not set, use the systems temporary directory.
+     *
+     * @api
      */
     public function getProxyDir(): ?string;
 
     /**
-     * @return string
-     */
-    public function getEntityConfigurationDir(): string;
-
-    /**
-     *  Drivers:
-     *   - pdo_mysql: A MySQL driver that uses the pdo_mysql PDO extension.
-     *   - mysqli: A MySQL driver that uses the mysqli extension.
-     *   - pdo_sqlite: An SQLite driver that uses the pdo_sqlite PDO extension.
-     *   - pdo_pgsql: A PostgreSQL driver that uses the pdo_pgsql PDO extension.
-     *   - pdo_oci: An Oracle driver that uses the pdo_oci PDO extension.
-     *              Note that this driver caused problems in our tests.
-     *              Prefer the oci8 driver if possible.
-     *   - pdo_sqlsrv: A Microsoft SQL Server driver that uses pdo_sqlsrv PDO
-     *   - sqlsrv: A Microsoft SQL Server driver that uses the sqlsrv PHP extension.
-     *   - oci8: An Oracle driver that uses the oci8 PHP extension.
+     *  Get entity manager driver.
      *
-     * @return string
+     * @api
      */
     public function getDriverName(): string;
 
     /**
-     * @return DriverConfigurationInterface
+     *          Implemented:
+     * 'pdo_mysql'
+     * 'pdo_sqlite'
+     * 'pdo_pgsql'.
+     *
+     * TODO:
+     *      - 'pdo_oci'
+     *      -  'oci8'
+     *      - 'ibm_db2'
+     *      - 'pdo_sqlsrv'
+     *      - 'mysqli'
+     *      - 'sqlsrv'
+     *
+     * @api
      */
     public function getDriverConfiguration(): DriverConfigurationInterface;
-
-    /**
-     * Possible drivers:
-     *  - EntityManagerConfigurationInterface::DRIVER_ANNOTATION
-     *  - EntityManagerConfigurationInterface::DRIVER_ATTRIBUTE
-     *
-     * @return string
-     */
-    public function getMetadataDriver(): string;
 }

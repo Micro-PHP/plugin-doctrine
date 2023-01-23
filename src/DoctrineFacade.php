@@ -1,49 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
+/*
+ *  This file is part of the Micro framework package.
+ *
+ *  (c) Stanislau Komar <kost@micro-php.net>
+ *
+ *  For the full copyright and license information, please view the LICENSE
+ *  file that was distributed with this source code.
+ */
+
 namespace Micro\Plugin\Doctrine;
 
-use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
-use Micro\Plugin\Doctrine\Business\EntityManager\ManagerProviderInterface;
+use Doctrine\ORM\Exception\MissingMappingDriverImplementation;
+use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolFactoryInterface;
+use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPoolInterface;
 
 class DoctrineFacade implements DoctrineFacadeInterface
 {
-    /**
-     * @param ManagerProviderInterface $ormManager
-     */
-    public function __construct(private readonly ManagerProviderInterface $ormManager)
+    private EntityManagerPoolInterface|null $managerPool;
+
+    public function __construct(private readonly EntityManagerPoolFactoryInterface $managerPoolFactory)
     {
+        $this->managerPool = null;
+    }
+
+    public function getManager(string $name = null): EntityManagerInterface
+    {
+        if (!$name) {
+            $name = DoctrinePluginConfigurationInterface::MANAGER_DEFAULT;
+        }
+
+        return $this->managerPool()->getManager($name);
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function getManager(string $managerAlias = DoctrinePluginConfigurationInterface::CONNECTION_DEFAULT): EntityManagerInterface
-    {
-        return $this->ormManager->getManager($managerAlias);
-    }
-
-    /**
-     * {@inheritDoc}
+     * @throws MissingMappingDriverImplementation
+     * @throws Exception
      */
     public function getDefaultManager(): EntityManagerInterface
     {
         return $this->getManager();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getDefaultConnection(): Connection
+    protected function managerPool(): EntityManagerPoolInterface
     {
-        return $this->getDefaultManager()->getConnection();
-    }
+        if (null === $this->managerPool) {
+            $this->managerPool = $this->managerPoolFactory->create();
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getConnection(string $name): Connection
-    {
-        return $this->getManager($name)->getConnection();
+        return $this->managerPool;
     }
 }
