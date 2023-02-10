@@ -25,7 +25,6 @@ class DoctrinePluginTest extends TestCase
         $kernel = new AppKernel(
             [
                 'ORM_DEFAULT_DRIVER' => 'pdo_sqlite',
-                'ORM_DEFAULT_PATH' => '/dev/null',
                 'ORM_DEFAULT_IN_MEMORY' => true,
             ],
             [DoctrinePlugin::class],

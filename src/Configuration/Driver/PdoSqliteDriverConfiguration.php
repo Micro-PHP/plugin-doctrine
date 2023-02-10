@@ -37,12 +37,21 @@ class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration impleme
 
     public function getParameters(): array
     {
+        $memP = [
+            'memory' => true,
+        ];
+
+        $isInMemory = $this->inMemory();
+        if (!$isInMemory) {
+            $memP['memory'] = false;
+            $memP['path'] = $this->getPath();
+        }
+
         return [
             'driver' => static::name(),
-            'path' => $this->getPath(),
             'user' => $this->getUser(),
             'password' => $this->getPassword(),
-            'memory' => $this->inMemory(),
+            ...$memP,
         ];
     }
 

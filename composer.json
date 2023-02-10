@@ -10,8 +10,6 @@
         }
     ],
     "require": {
-        "doctrine/annotations": "^1",
-        "doctrine/cache": "^2",
         "doctrine/orm": "^2",
         "micro/kernel": "^1.6",
         "micro/plugin-console": "^1.6",
