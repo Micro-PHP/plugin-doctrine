@@ -94,13 +94,28 @@ class DriverConfigurationInterfaceTest extends TestCase
                 PdoSqliteDriverConfiguration::class,
                 [
                     'path' => $path,
-                    'in_memory' => true,
+                    'in_memory' => false,
                     'user' => $user,
                     'password' => $password,
                 ],
                 [
                     'driver' => 'pdo_sqlite',
                     'path' => $path,
+                    'user' => $user,
+                    'password' => $password,
+                    'memory' => false,
+                ],
+            ],
+            [
+                PdoSqliteDriverConfiguration::class,
+                [
+                    'path' => $path,
+                    'in_memory' => true,
+                    'user' => $user,
+                    'password' => $password,
+                ],
+                [
+                    'driver' => 'pdo_sqlite',
                     'user' => $user,
                     'password' => $password,
                     'memory' => true,
