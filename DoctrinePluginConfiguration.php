@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine;
 
-use Micro\Framework\Kernel\Configuration\PluginConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\PluginConfiguration;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfiguration;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfigurationInterface;
 

@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit\Business\Pool;
+namespace Micro\Plugin\Doctrine\Tests\Unit\Business\Pool;
 
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactoryInterface;
 use Micro\Plugin\Doctrine\Business\Pool\EntityManagerPool;

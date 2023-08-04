@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit\Console;
+namespace Micro\Plugin\Doctrine\Tests\Unit\Console;
 
 use Micro\Plugin\Doctrine\Console\CollectionRegionCommand;
 use Micro\Plugin\Doctrine\Console\CreateCommand;

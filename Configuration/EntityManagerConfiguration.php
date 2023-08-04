@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Micro\Plugin\Doctrine\Configuration;
 
 use Doctrine\DBAL\DriverManager;
-use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\PluginRoutingKeyConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoMySqlConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoPgSqlConfiguration;

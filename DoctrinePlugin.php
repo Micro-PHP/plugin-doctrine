@@ -13,11 +13,11 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine;
 
-use Micro\Component\DependencyInjection\Container;
+use Micro\Framework\DependencyInjection\Container;
 use Micro\Framework\Kernel\KernelInterface;
-use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
-use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
-use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
+use Micro\Framework\BootConfiguration\Plugin\ConfigurableInterface;
+use Micro\Framework\BootDependency\Plugin\DependencyProviderInterface;
+use Micro\Framework\BootConfiguration\Plugin\PluginConfigurationTrait;
 use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactory;
 use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactoryInterface;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactory;

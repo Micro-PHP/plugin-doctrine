@@ -11,7 +11,7 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit\Business\Locator;
+namespace Micro\Plugin\Doctrine\Tests\Unit\Business\Locator;
 
 use Micro\Framework\Kernel\KernelInterface;
 use Micro\Plugin\Doctrine\Business\Locator\AttributeEntityFileConfigurationLocator;

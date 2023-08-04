@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit\Configuration;
+namespace Micro\Plugin\Doctrine\Tests\Unit\Configuration;
 
-use Micro\Framework\Kernel\Configuration\DefaultApplicationConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\DefaultApplicationConfiguration;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfiguration;
 use PHPUnit\Framework\TestCase;
 

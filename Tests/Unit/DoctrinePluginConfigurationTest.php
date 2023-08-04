@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit;
+namespace Micro\Plugin\Doctrine\Tests\Unit;
 
-use Micro\Framework\Kernel\Configuration\ApplicationConfigurationInterface;
+use Micro\Framework\BootConfiguration\Configuration\ApplicationConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\EntityManagerConfigurationInterface;
 use Micro\Plugin\Doctrine\DoctrinePluginConfiguration;
 use Micro\Plugin\Doctrine\DoctrinePluginConfigurationInterface;

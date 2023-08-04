@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit;
+namespace Micro\Plugin\Doctrine\Tests\Unit;
 
-use Micro\Kernel\App\AppKernel;
+use Micro\Framework\KernelApp\AppKernel;
 use Micro\Plugin\Doctrine\DoctrineFacadeInterface;
 use Micro\Plugin\Doctrine\DoctrinePlugin;
 use PHPUnit\Framework\TestCase;

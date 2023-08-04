@@ -11,9 +11,9 @@ declare(strict_types=1);
  *  file that was distributed with this source code.
  */
 
-namespace Micro\Plugin\Doctrine\Test\Unit\Configuration\Driver;
+namespace Micro\Plugin\Doctrine\Tests\Unit\Configuration\Driver;
 
-use Micro\Framework\Kernel\Configuration\DefaultApplicationConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\DefaultApplicationConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\DriverConfigurationInterface;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoMySqlConfiguration;
 use Micro\Plugin\Doctrine\Configuration\Driver\PdoPgSqlConfiguration;

@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace Micro\Plugin\Doctrine\Configuration\Driver;
 
-use Micro\Framework\Kernel\Configuration\PluginRoutingKeyConfiguration;
+use Micro\Framework\BootConfiguration\Configuration\PluginRoutingKeyConfiguration;
 
 class PdoSqliteDriverConfiguration extends PluginRoutingKeyConfiguration implements DriverConfigurationInterface
 {
