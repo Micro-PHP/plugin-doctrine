@@ -45,9 +45,6 @@ class DoctrinePlugin implements DependencyProviderInterface, ConfigurableInterfa
 
     private KernelInterface $kernel;
 
-    /**
-     * {@inheritDoc}
-     */
     public function provideDependencies(Container $container): void
     {
         $container->register(DoctrineFacadeInterface::class, function (KernelInterface $kernel): DoctrineFacadeInterface {

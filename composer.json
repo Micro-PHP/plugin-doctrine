@@ -15,9 +15,7 @@
         "micro/plugin-console": "^2.0",
         "symfony/cache": "^6"
     },
-    "require-dev": {
-        "ergebnis/composer-normalize": "^2.34"
-    },
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Micro\\Plugin\\Doctrine\\": "/"
@@ -27,10 +25,6 @@
         ]
     },
     "config": {
-        "allow-plugins": {
-            "ergebnis/composer-normalize": true
-        },
         "sort-packages": true
-    },
-    "minimum-stability": "dev"
+    }
 }

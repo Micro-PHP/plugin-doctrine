@@ -43,7 +43,7 @@ class CommandTest extends TestCase
         $this->assertInstanceOf(Command::class, $obj);
     }
 
-    public function dataProvider()
+    public static function dataProvider(): array
     {
         return [
             [CollectionRegionCommand::class],

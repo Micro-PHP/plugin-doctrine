@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 
 class DoctrinePluginTest extends TestCase
 {
-    public function testSqlitePlugin()
+    public function testSqlitePlugin(): void
     {
         $kernel = new AppKernel(
             [

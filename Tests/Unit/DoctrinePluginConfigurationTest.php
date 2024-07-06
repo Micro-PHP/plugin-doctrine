@@ -32,7 +32,7 @@ class DoctrinePluginConfigurationTest extends TestCase
         $this->pluginConfiguration = new DoctrinePluginConfiguration($this->applicationConfiguration);
     }
 
-    public function testGetManagerConfiguration()
+    public function testGetManagerConfiguration(): void
     {
         $this->applicationConfiguration
             ->expects($this->once())
@@ -49,7 +49,7 @@ class DoctrinePluginConfigurationTest extends TestCase
     /**
      * @dataProvider dataProviderIsDevMode
      */
-    public function testIsDevMode(bool $isDev)
+    public function testIsDevMode(bool $isDev): void
     {
         $this->applicationConfiguration
             ->expects($this->once())
@@ -60,7 +60,7 @@ class DoctrinePluginConfigurationTest extends TestCase
         $this->assertEquals($isDev, $this->pluginConfiguration->isDevMode());
     }
 
-    public function dataProviderIsDevMode()
+    public static function dataProviderIsDevMode(): array
     {
         return [
             [true],
@@ -68,7 +68,7 @@ class DoctrinePluginConfigurationTest extends TestCase
         ];
     }
 
-    public function testGetConnectionList()
+    public function testGetConnectionList(): void
     {
         $listString = 'default, test';
         $list = ['default', 'test']; // Because with space after comma.
