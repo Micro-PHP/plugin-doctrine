@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "doctrine/orm": "^2",
+        "doctrine/orm": "^2|^3",
         "micro/kernel": "^1.6",
         "micro/plugin-console": "^1.6",
-        "symfony/cache": "^6"
+        "symfony/cache": "^6|^7"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.29",
