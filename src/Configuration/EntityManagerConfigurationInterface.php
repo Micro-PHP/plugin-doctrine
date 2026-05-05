@@ -33,6 +33,8 @@ interface EntityManagerConfigurationInterface
      */
     public function getDriverName(): string;
 
+    public function getCacheItemPoolName(): ?string;
+
     /**
      *          Implemented:
      * 'pdo_mysql'
