@@ -18,6 +18,7 @@ use Micro\Framework\Kernel\KernelInterface;
 use Micro\Framework\Kernel\Plugin\ConfigurableInterface;
 use Micro\Framework\Kernel\Plugin\DependencyProviderInterface;
 use Micro\Framework\Kernel\Plugin\PluginConfigurationTrait;
+use Micro\Plugin\Cache\Facade\CacheFacadeInterface;
 use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactory;
 use Micro\Plugin\Doctrine\Business\Connection\ConnectionFactoryInterface;
 use Micro\Plugin\Doctrine\Business\EntityManager\EntityManagerFactory;
@@ -45,11 +46,14 @@ class DoctrinePlugin implements DependencyProviderInterface, ConfigurableInterfa
 
     private KernelInterface $kernel;
 
+    private Container $container;
+
     /**
      * {@inheritDoc}
      */
     public function provideDependencies(Container $container): void
     {
+        $this->container = $container;
         $container->register(DoctrineFacadeInterface::class, function (KernelInterface $kernel): DoctrineFacadeInterface {
             $this->kernel = $kernel;
 
@@ -86,9 +90,15 @@ class DoctrinePlugin implements DependencyProviderInterface, ConfigurableInterfa
 
     protected function createDriverMetadataFactory(): DriverMetadataFactoryInterface
     {
+        $cacheFacade = null;
+        if($this->container->has(CacheFacadeInterface::class)) {
+            $cacheFacade = $this->container->get(CacheFacadeInterface::class);
+        }
+
         return new DriverMetadataFactory(
             $this->createEntityFileConfigurationLocatorFactory(),
-            $this->configuration()
+            $this->configuration(),
+            $cacheFacade,
         );
     }
 
