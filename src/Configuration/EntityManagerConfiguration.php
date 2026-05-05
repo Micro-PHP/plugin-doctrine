@@ -88,6 +88,6 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
 
     public function getCacheItemPoolName(): ?string
     {
-        return $this->get(self::CFG_CACHE_ITEM_POOL_NAME, null, false);
+        return $this->get(self::CFG_CACHE_ITEM_POOL_NAME, null, true);
     }
 }
