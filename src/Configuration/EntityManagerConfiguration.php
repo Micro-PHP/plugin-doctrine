@@ -41,6 +41,15 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
     public const CFG_PROXY_DIR = 'ORM_%s_PROXY_DIR';
 
     /**
+     * Cache item pool name.
+     *
+     * Example `ORM_DEFAULT_CACHE_ITEM_POOL_NAME=default`
+     *
+     * @api
+     */
+    public const CFG_CACHE_ITEM_POOL_NAME = 'ORM_%s_CACHE_ITEM_POOL_NAME';
+
+    /**
      * @return string|null
      */
     public function getProxyDir(): ?string
@@ -75,5 +84,10 @@ class EntityManagerConfiguration extends PluginRoutingKeyConfiguration implement
     public function getAvailableDrivers(): array
     {
         return DriverManager::getAvailableDrivers();
+    }
+
+    public function getCacheItemPoolName(): ?string
+    {
+        return $this->get(self::CFG_CACHE_ITEM_POOL_NAME, null, false);
     }
 }
