@@ -43,7 +43,8 @@ readonly class DriverMetadataFactory implements DriverMetadataFactoryInterface
         return ORMSetup::createAttributeMetadataConfiguration(
             $paths,
             $this->pluginConfiguration->isDevMode(),
-            $proxyDir
+            $proxyDir,
+            $this->createCacheItem($emCfg)
         );
     }
 
